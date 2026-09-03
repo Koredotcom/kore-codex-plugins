@@ -1,0 +1,25 @@
+{
+  "name": "kore-agent-design",
+  "version": "0.1.0",
+  "description": "Design and review functional and technical specifications for Kore.ai agents.",
+  "author": {
+    "name": "Kore.ai"
+  },
+  "homepage": "https://github.com/Koredotcom/kore-codex-plugins",
+  "repository": "https://github.com/Koredotcom/kore-codex-plugins",
+  "keywords": ["kore.ai", "agent", "design", "sop", "architecture"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Kore Agent Design",
+    "shortDescription": "Design and review Kore.ai agent solutions.",
+    "longDescription": "Guide a Kore.ai agent from an initial idea or existing material to traceable functional and technical designs, then assess readiness for implementation.",
+    "developerName": "Kore.ai",
+    "category": "Productivity",
+    "capabilities": ["Interactive", "Write", "Review"],
+    "websiteURL": "https://kore.ai/",
+    "defaultPrompt": [
+      "Help me design a Kore.ai agent from this idea.",
+      "Review these functional and technical agent designs."
+    ]
+  }
+}

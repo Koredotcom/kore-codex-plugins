@@ -1,0 +1,7 @@
+interface:
+  display_name: "Kore Agent Designer"
+  short_description: "Design and review traceable Kore.ai agents"
+  default_prompt: "Use $kore-agent-designer to turn this idea into a functional and technical agent design."
+policy:
+  allow_implicit_invocation: true
+

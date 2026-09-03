@@ -1,0 +1,110 @@
+{
+  "defaultLanguage": "en",
+  "supportedLanguages": ["en"],
+  "dialogs": [
+    {
+      "_id": "dialog-order-status",
+      "localeData": {
+        "en": {
+          "name": "Check Order Status"
+        }
+      },
+      "nodes": [
+        {
+          "nodeId": "node-intent",
+          "componentId": "component-intent",
+          "type": "intent",
+          "transitions": [{"default": "node-order-id"}]
+        },
+        {
+          "nodeId": "node-order-id",
+          "componentId": "component-order-id",
+          "type": "entity",
+          "transitions": [{"default": "node-service"}]
+        },
+        {
+          "nodeId": "node-service",
+          "componentId": "component-service",
+          "type": "service",
+          "transitions": [{"default": "node-script"}]
+        },
+        {
+          "nodeId": "node-script",
+          "componentId": "component-script",
+          "type": "script",
+          "transitions": []
+        }
+      ]
+    }
+  ],
+  "dialogComponents": [
+    {
+      "_id": "component-intent",
+      "type": "intent",
+      "name": "Check Order Status",
+      "dialogId": "dialog-order-status",
+      "refId": "ref-order-status"
+    },
+    {
+      "_id": "component-order-id",
+      "type": "entity",
+      "name": "Order ID",
+      "entityType": "string",
+      "message": [
+        {
+          "channel": "default",
+          "localeData": {
+            "en": {
+              "type": "basic",
+              "text": "What is your order number?"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "_id": "component-service",
+      "type": "service",
+      "name": "Get Order",
+      "serviceNodeType": "webservice",
+      "authRequired": true,
+      "idp": "public-demo-auth-profile",
+      "endPoint": {
+        "method": "GET",
+        "protocol": "https",
+        "host": "{{env.service_host}}",
+        "path": "/orders/{{context.entities.Order ID}}?token=private-query-value"
+      },
+      "headers": {
+        "value": "{\"Authorization\":\"Bearer private-header-value\",\"X-API-Key\":\"private-api-value\",\"X-Request-ID\":\"{{context.session.request_id}}\"}"
+      },
+      "payload": {
+        "value": "{\"orderId\":\"{{context.entities.Order ID}}\",\"password\":\"private-payload-value\"}"
+      },
+      "preProcessor": "const token = \"private-preprocessor-value\";",
+      "postProcessor": "context.orderStatus = response.body.status;"
+    },
+    {
+      "_id": "component-script",
+      "type": "script",
+      "name": "Format Status",
+      "script": "const apiKey = \"private-script-value\"; context.message = context.orderStatus;"
+    }
+  ],
+  "sentences": [
+    {
+      "taskId": "component-intent",
+      "language": "en",
+      "sentence": "Where is my order?"
+    }
+  ],
+  "patterns": [],
+  "channels": [
+    {
+      "type": "web",
+      "displayName": "Web",
+      "enable": true
+    }
+  ]
+}
+

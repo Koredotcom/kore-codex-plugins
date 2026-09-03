@@ -1,23 +1,88 @@
-### AL ###
-#Template for AL projects for Dynamics 365 Business Central
-#launch.json folder
+# Operating system files
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+Desktop.ini
+
+# Editors and local workspace settings
+.idea/
 .vscode/
-#Cache folder
-.alcache/
-#Symbols folder
-.alpackages/
-#Snapshots folder
-.snapshots/
-#Testing Output folder
-.output/
-#Extension App-file
-*.app
-#Rapid Application Development File
-rad.json
-#Translation Base-file
-*.g.xlf
-#License-files
-*.bclicense
-*.flf
-#Test results file
-TestResults.xml
+*.swp
+*.swo
+*~
+.codex/
+.claude/
+.devin/
+
+# Local agent instructions and memory (shared AGENTS.md remains trackable)
+AGENTS.local.md
+AGENTS.override.md
+CLAUDE.md
+CLAUDE.local.md
+CLAUDE.override.md
+MEMORY.md
+memories/
+
+# Environment files and credentials
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+credentials*.json
+service-account*.json
+.git-credentials
+.netrc
+.npmrc
+.pypirc
+*.ovpn
+secrets/
+**/secrets/
+.aws/
+.docker/
+.gnupg/
+.kube/
+.ssh/
+
+# Customer, export, and local working data
+customer-data/
+customer_data/
+private-data/
+local-data/
+exports/
+uploads/
+work/
+.scratch/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# Node and package-manager output
+node_modules/
+.npm/
+.yarn/
+.pnpm-store/
+
+# Generated output and caches
+build/
+dist/
+coverage/
+.cache/
+tmp/
+temp/
+*.log

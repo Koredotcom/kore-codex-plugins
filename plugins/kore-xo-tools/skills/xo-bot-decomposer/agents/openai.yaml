@@ -1,0 +1,7 @@
+interface:
+  display_name: "XO Bot Decomposer"
+  short_description: "Document goals and flows in XO bot exports"
+  default_prompt: "Use $xo-bot-decomposer to analyze this Kore.ai XO bot export."
+policy:
+  allow_implicit_invocation: true
+

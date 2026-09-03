@@ -1,0 +1,18 @@
+#!/bin/sh
+set -eu
+
+repo_root="$(git rev-parse --show-toplevel)"
+cd "$repo_root"
+
+if ! command -v gitleaks >/dev/null 2>&1; then
+  echo "pre-commit: gitleaks is required but was not found in PATH." >&2
+  echo "Install it from https://github.com/gitleaks/gitleaks and retry." >&2
+  exit 1
+fi
+
+echo "Running staged secret scan..."
+gitleaks git --staged --no-banner --no-color --redact --verbose
+
+echo "Running staged repository-safety scan..."
+python3 scripts/check_repository_safety.py --staged
+
