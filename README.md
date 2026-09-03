@@ -2,7 +2,7 @@
 
 Kore.ai-maintained skills and plugins that help developers, partners, and customers work more effectively with Kore.ai products.
 
-This repository is publicly available for use, but it is not currently open for external contributions. Kore.ai maintains and publishes the contents of the **Kore Skills** marketplace.
+This repository is available under the MIT License, but it is not currently open for external contributions. Kore.ai maintains and publishes the contents of the **Kore Skills** marketplace.
 
 ## What you can do with Kore Skills
 
@@ -118,6 +118,10 @@ python3 scripts/check_repository_safety.py --all-files
 ```
 
 Git hooks can be bypassed, so the GitHub Actions workflow repeats both checks for every push and pull request.
+
+## License
+
+Copyright © 2026 Kore.ai, Inc. Released under the [MIT License](LICENSE).
 
 ## Project status
 
