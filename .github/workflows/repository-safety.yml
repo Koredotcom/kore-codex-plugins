@@ -12,6 +12,9 @@ jobs:
   scan:
     name: Secrets and local paths
     runs-on: ubuntu-latest
+    env:
+      GITLEAKS_VERSION: "8.30.0"
+      GITLEAKS_LINUX_X64_SHA256: "79a3ab579b53f71efd634f3aaf7e04a0fa0cf206b7ed434638d1547a2470a66e"
 
     steps:
       - name: Check out repository history
@@ -19,18 +22,20 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Go
-        uses: actions/setup-go@v6
-        with:
-          go-version: stable
-
-      - name: Install pinned Gitleaks CLI
-        run: go install github.com/gitleaks/gitleaks/v8@v8.30.0
+      - name: Install verified Gitleaks CLI
+        shell: bash
+        run: |
+          archive="${RUNNER_TEMP}/gitleaks.tar.gz"
+          curl --fail --location --retry 3 \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" \
+            --output "${archive}"
+          printf '%s  %s\n' "${GITLEAKS_LINUX_X64_SHA256}" "${archive}" | sha256sum --check --strict
+          tar --extract --gzip --file "${archive}" --directory "${RUNNER_TEMP}" gitleaks
+          "${RUNNER_TEMP}/gitleaks" version
 
       - name: Scan Git history for secrets
         run: |
-          "$(go env GOPATH)/bin/gitleaks" git --no-banner --no-color --redact --verbose .
+          "${RUNNER_TEMP}/gitleaks" git --no-banner --no-color --redact --verbose .
 
       - name: Scan repository files for local paths
         run: python3 scripts/check_repository_safety.py --all-files
-
