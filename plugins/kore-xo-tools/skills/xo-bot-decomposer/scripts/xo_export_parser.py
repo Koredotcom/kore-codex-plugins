@@ -58,13 +58,17 @@ SENSITIVE_ASSIGNMENT_RE = re.compile(
 SENSITIVE_QUERY_RE = re.compile(
     r"(?i)([?&](?:api[-_]?key|access[-_]?token|client[-_]?secret|token|secret|password)=)([^&#\s]+)"
 )
-AUTH_SCHEME_RE = re.compile(r"(?i)\b(Bearer|Basic)\s+([^\s,;]+)")
+AUTH_SCHEME_RE = re.compile(r"(?i)\b(Bearer|Basic)\s+([^\s,;\"']+)")
 
 
 def _is_portable_reference(value: object) -> bool:
     """Return true for unresolved configuration references rather than values."""
-    text = str(value)
-    return "{{" in text and "}}" in text or "${" in text and "}" in text
+    if not isinstance(value, str):
+        return False
+    return bool(re.fullmatch(
+        r"(?i)(?:(?:Bearer|Basic)\s+)?(?:\{\{[^{}]+\}\}|\$\{[^{}]+\})",
+        value.strip(),
+    ))
 
 
 def _redact_text(value: object) -> str:
