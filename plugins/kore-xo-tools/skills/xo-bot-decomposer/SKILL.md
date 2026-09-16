@@ -14,7 +14,7 @@ This skill documents what is present in the supplied export. It does not estimat
 
 ## Protect the supplied export
 
-Treat every export and generated artifact as potentially sensitive. Work only with files the user supplied or authorized. Do not commit them or copy them into the plugin repository. Upload only the completed documents when the user authorizes the optional Google Drive handoff below; never include the source export or intermediate evidence.
+Treat every export and generated artifact as potentially sensitive. Work only with files the user supplied or authorized. Do not commit them or copy them into the plugin repository. Upload only the completed documents when the user authorizes the optional storage handoff below; never include the source export or intermediate evidence.
 
 The bundled parser redacts likely credential values in service headers, request bodies, URLs, and scripts. Redaction is a safety layer, not a guarantee: inspect generated files before sharing them and describe authentication through header names, profile identifiers, or environment-variable references rather than resolved secrets.
 
@@ -24,7 +24,7 @@ Accept a `.json` definition, `.zip` archive, extracted export directory, or past
 
 - If the input is unambiguous, begin without asking the user to restate it.
 - If several plausible exports exist, ask the user to select one.
-- Use an explicit local destination without asking again, and create it when requested. Otherwise use a fresh temporary directory for evidence and save final documents in the current working directory. Ask only when the destination is ambiguous or unavailable. Handle a Drive destination through the optional handoff after local generation.
+- Use an explicit local destination without asking again, and create it when requested. Otherwise use a fresh temporary directory for evidence and save final documents in the current working directory. Ask only when the destination is ambiguous or unavailable. Handle a cloud-storage destination through the optional handoff after local generation.
 - Never write generated analysis into a source fixture, read-only directory, or the plugin installation.
 
 The parser recognizes common single-definition export shapes. `botDefinition.json`, earlier-version labels, and ambiguous version metadata use the XO 10-compatible route; `appDefinition.json` or an explicit version of 11 or later uses the XO 11 route. Treat this as parser routing, not proof that every export from a product release has an identical schema.
@@ -133,18 +133,15 @@ Before delivering the two documents:
 - report the files created and the parser route used.
 
 
-## Offer an optional Google Drive handoff
+## Offer an optional storage handoff
 
-After the documents pass the quality check, return their local links and offer:
+After validation, provide local links and offer a choice: **local files only**, **Google Drive** (My Drive or a shared drive), **OneDrive**, or **SharePoint**. Recommend `<Bot Name> - XO Decomposition` as the upload-folder name, while allowing another name or an existing folder. Honor prior choices without asking again; selecting a local output folder does not authorize upload.
 
-> Would you like both documents uploaded into a folder named `<Bot Name> - XO Decomposition`? You can use that name, choose a different name, or select an existing folder in My Drive or a shared drive.
+For an accepted upload:
 
-Honor an earlier upload request, folder choice, or decision to keep files local without asking again. Selecting a local output folder alone does not authorize an upload.
-
-If the user accepts:
-
-1. Use the connected Google Drive plugin and its `google-drive` skill. Discover the available upload and folder-search capabilities. A native folder picker is optional; a supplied folder URL/ID or a short list of accessible folders with names, locations, and links also lets the user choose. If the plugin or required access is unavailable, explain what is needed and retain the local deliverables.
-2. Resolve the destination with the user. For a new folder, recommend `<Bot Name> - XO Decomposition`, accept another name, and confirm its parent in My Drive or a shared drive. Acceptance authorizes creating that folder without another approval. For an existing folder, use the selected folder directly. Keep both files together in a folder rather than uploading loose files to a drive root; a selected root is the parent for the named output folder.
-3. Check for an exact-name folder under the chosen parent before creating one. If found, offer reuse or a distinct name such as `<Bot Name> - XO Decomposition - <YYYY-MM-DD>`. Verify the destination folder ID, write access, and shared-drive support when applicable. Preserve existing sharing settings.
-4. Upload only the two completed Markdown documents, preserving their contents and filenames. If the user requests native Google Docs, follow the plugin's Google Docs skill for conversion. Resolve existing filename collisions according to the user's preference before replacing anything.
-5. Verify both files and their parent folder through connector readback, then return the observed folder and file links. If only one upload succeeds, report it accurately and retry only the missing file after checking whether an uncertain attempt already created it.
+1. Discover the selected provider's available connector tools and guidance. Google Drive uses the `google-drive` skill; OneDrive and SharePoint use their available connector guidance. Verify browsing, upload, readback, and new-folder creation capabilities as needed. These are destination options, not a promise that every environment has the connectors. If a connector or write access is unavailable, explain the limitation and supply the local files for manual upload. Do not require cloud access to finish the documents or substitute a different provider without agreement.
+2. Let the user provide a folder URL/ID or choose from accessible folders when browsing is supported. Show names, locations, and links to resolve ambiguity. For OneDrive, resolve the account and drive; for SharePoint, resolve the site, document library, and folder; for Google Drive, resolve My Drive or the shared drive. Ask only for missing details; do not depend on a native folder picker.
+3. Keep both documents in one folder. For a new folder, confirm the parent and use the recommended name or the user's alternative. Accepting this choice authorizes creation without another confirmation. Reuse an explicitly chosen existing folder directly. If the user selects a drive or document-library root, create the named folder under it instead of uploading loose files there.
+4. Check for an exact-name folder before creating one. Offer reuse or a distinct name such as `<Bot Name> - XO Decomposition - <YYYY-MM-DD>` if it exists. Verify the resolved folder identifier and write access. Preserve sharing settings, and resolve existing filename collisions according to the user's preference before overwriting files.
+5. Upload only the two final Markdown documents, preserving their contents and filenames; exclude source exports and intermediate evidence. Convert only when requested, using applicable document/provider guidance and verifying the converted files first.
+6. Verify both files and their parent folder through connector readback and return observed folder and file links. Report partial success accurately. Before retrying an uncertain upload, check whether it already created a file and retry only missing or failed uploads.
