@@ -1,6 +1,6 @@
 {
   "name": "kore-agent-design",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Design and review functional and technical specifications for Kore.ai agents.",
   "author": {
     "name": "Kore.ai"
@@ -12,7 +12,7 @@
   "interface": {
     "displayName": "Kore Agent Design",
     "shortDescription": "Design and review Kore.ai agent solutions.",
-    "longDescription": "Guide a Kore.ai agent from an initial idea or existing material to traceable functional and technical designs, then assess readiness for implementation.",
+    "longDescription": "Guide a Kore.ai agent from an initial idea or existing material to traceable functional and technical designs, then assess readiness and optionally continue into explicitly authorized setup using available platform tools.",
     "developerName": "Kore.ai",
     "category": "Productivity",
     "capabilities": ["Interactive", "Write", "Review"],

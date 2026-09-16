@@ -23,7 +23,7 @@ The skill processes supplied files locally, redacts likely credential values fro
 
 ### Kore Agent Design
 
-Installs `$kore-agent-designer`, which helps users create or review traceable functional and technical designs for conversational, process, or hybrid Kore.ai agents. It supports guided design from an initial idea, document normalization, gap review, readiness assessment, and an implementation handoff without connecting to or modifying a Kore.ai environment.
+Installs `$kore-agent-designer`, which helps users create or review traceable functional and technical designs for conversational, process, or hybrid Kore.ai agents. It supports guided design from an initial idea, document normalization, gap review, readiness assessment, and an implementation handoff. After an explicit implementation request, it can use available Arch/Kore Agent Platform tools for the approved setup scope; connected tools are optional for design and review.
 
 ## Getting started
 

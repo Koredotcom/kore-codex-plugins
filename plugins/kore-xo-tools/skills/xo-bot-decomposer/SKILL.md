@@ -71,7 +71,7 @@ Name goals as plain-language verb–noun outcomes. Write numbered steps from the
 
 For exports with 50 or more candidate dialogs, produce the summary table first and ask which goals the user wants expanded before generating every detailed flow.
 
-Use this shape:
+Before writing either document, read [references/output-detail.md](references/output-detail.md) for the required metadata, per-goal detail, technical sections, and coverage checks. Use this business-document shape:
 
 ```markdown
 # Bot Goal Decomposition: <Bot Name>

@@ -1,6 +1,6 @@
 ---
 name: kore-agent-designer
-description: Guide a Kore.ai agent from an initial idea or supplied material to a traceable functional design and technical design. Use for guided discovery, drafting, updating, design review, gap analysis, readiness assessment, or an implementation handoff. Do not estimate effort or create or modify a Kore.ai project.
+description: Guide a Kore.ai agent from an initial idea or supplied material to a traceable functional design and technical design. Use for guided discovery, drafting, updating, design review, gap analysis, readiness assessment, or an implementation handoff. Do not estimate effort. Create or modify a Kore.ai project only after an explicit implementation request using available platform tools.
 ---
 
 # Kore Agent Designer
@@ -50,6 +50,7 @@ For skill-authored documents:
 
 - preserve the template marker and all level-two headings in order;
 - retain non-applicable sections with a short reason;
+- repeat the prescribed use-case structure for each use case;
 - keep business behavior in the functional design and implementation detail in the technical design;
 - preserve stable identifiers rather than renumbering to close gaps;
 - use relative companion links when files share a directory; and
@@ -80,7 +81,7 @@ Use `Not applicable` for process-only sections in a purely conversational design
 
 Use current public Kore.ai documentation or user-provided environment evidence when product behavior affects the design. Record the evidence used. If authoritative evidence is unavailable, continue with product-neutral questions and mark the implementation choice `Not verifiable`.
 
-Use only documentation and tools available to the user. A connected Kore.ai environment is not required for functional discovery, and this skill must not connect to or modify an environment.
+Use only documentation and tools available to the user. When an available Arch/Kore Agent Platform documentation tool needs a connection, use a previously authorized environment or ask the user to select one; never infer production as the default. A connection is optional for discovery: continue with evidence gaps when it is unavailable. A design or review request does not authorize platform changes.
 
 ## Review and assess readiness
 
@@ -100,7 +101,7 @@ python3 "${PLUGIN_ROOT}/skills/kore-agent-designer/scripts/check_design_structur
 
 When `PLUGIN_ROOT` is unset during repository-source testing, resolve the script relative to this `SKILL.md`. Treat `PASS`, `WARN`, and `UNRECOGNIZED_FORMAT` only as structural evidence.
 
-## Prepare a public implementation handoff
+## Prepare an implementation handoff
 
 When the verdict permits project setup, recommend a handoff containing:
 
@@ -112,4 +113,14 @@ When the verdict permits project setup, recommend a handoff containing:
 - acceptance tests and release evidence; and
 - actions that still require explicit user authorization.
 
-Do not create a project, agent, workflow, integration, deployment, or other platform resource. If the user later asks for implementation, treat it as a separate authorized task and use only tools available to that user.
+When ready, offer to continue with available Arch/Kore Agent Platform tools to set up the approved design. This recommendation does not authorize changes. If tools are unavailable, provide the handoff checklist without claiming implementation occurred.
+
+After the user explicitly asks to implement:
+
+1. Resolve the target environment/workspace, project name and description, and first implementation slice; reuse already confirmed choices.
+2. Discover the available platform tools and follow their project-builder discovery contract before planning or modifying resources. Do not invent actions or require employee-only services.
+3. Resolve assumptions that block the approved slice, then build only that slice while preserving functional-to-technical traceability.
+4. Verify operations with unknown outcomes before retrying and read back the created resources where supported.
+5. Report the implemented scope, remaining gaps, and anything the available tools cannot create or verify.
+
+Project, workflow, agent, integration, version, or deployment mutations require explicit authorization for that implementation scope; ordinary discovery or readiness review alone is insufficient.
