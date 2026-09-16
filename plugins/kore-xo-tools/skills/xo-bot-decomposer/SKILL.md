@@ -14,7 +14,7 @@ This skill documents what is present in the supplied export. It does not estimat
 
 ## Protect the supplied export
 
-Treat every export and generated artifact as potentially sensitive. Work only with files the user supplied or authorized. Do not upload them, commit them, or copy them into the plugin repository.
+Treat every export and generated artifact as potentially sensitive. Work only with files the user supplied or authorized. Do not commit them or copy them into the plugin repository. Upload only the completed documents when the user authorizes the optional storage handoff below; never include the source export or intermediate evidence.
 
 The bundled parser redacts likely credential values in service headers, request bodies, URLs, and scripts. Redaction is a safety layer, not a guarantee: inspect generated files before sharing them and describe authentication through header names, profile identifiers, or environment-variable references rather than resolved secrets.
 
@@ -24,10 +24,16 @@ Accept a `.json` definition, `.zip` archive, extracted export directory, or past
 
 - If the input is unambiguous, begin without asking the user to restate it.
 - If several plausible exports exist, ask the user to select one.
-- Use the destination the user provides. Otherwise create a fresh temporary working directory and place final documents in the current task's requested output location.
+- Use an explicit local destination without asking again, and create it when requested. Otherwise use a fresh temporary directory for evidence and save final documents in the current working directory. Ask only when the destination is ambiguous or unavailable. Handle a cloud-storage destination through the optional handoff after local generation.
 - Never write generated analysis into a source fixture, read-only directory, or the plugin installation.
 
 The parser recognizes common single-definition export shapes. `botDefinition.json`, earlier-version labels, and ambiguous version metadata use the XO 10-compatible route; `appDefinition.json` or an explicit version of 11 or later uses the XO 11 route. Treat this as parser routing, not proof that every export from a product release has an identical schema.
+
+## Document scope notice
+
+Place this notice immediately below the title in both the business goal decomposition and technical reference, before source metadata:
+
+> **Scope disclaimer:** SearchAI, SmartAssist start flows, and Agent Assist configurations are not included in the bot export and are therefore not represented in this document.
 
 ## Generate deterministic evidence
 
@@ -121,6 +127,21 @@ Before delivering the two documents:
 - ensure every stated fact is supported by generated or source evidence and label inference;
 - verify services, entities, scripts, forms, and environment references against `_inventory.json`;
 - confirm business and technical detail remain separated;
-- search outputs for unredacted credentials and machine-local paths;
+- confirm both documents begin with the scope disclaimer below their titles;
+- search outputs for unredacted credentials and machine-local paths; never restore redacted values from the raw export;
 - note missing, ambiguous, or unsupported export evidence; and
 - report the files created and the parser route used.
+
+
+## Offer an optional storage handoff
+
+After validation, provide local links and offer a choice: **local files only**, **Google Drive** (My Drive or a shared drive), **OneDrive**, or **SharePoint**. Recommend `<Bot Name> - XO Decomposition` as the upload-folder name, while allowing another name or an existing folder. Honor prior choices without asking again; selecting a local output folder does not authorize upload.
+
+For an accepted upload:
+
+1. Discover the selected provider's available connector tools and guidance. Google Drive uses the `google-drive` skill; OneDrive and SharePoint use their available connector guidance. Verify browsing, upload, readback, and new-folder creation capabilities as needed. These are destination options, not a promise that every environment has the connectors. If a connector or write access is unavailable, explain the limitation and supply the local files for manual upload. Do not require cloud access to finish the documents or substitute a different provider without agreement.
+2. Let the user provide a folder URL/ID or choose from accessible folders when browsing is supported. Show names, locations, and links to resolve ambiguity. For OneDrive, resolve the account and drive; for SharePoint, resolve the site, document library, and folder; for Google Drive, resolve My Drive or the shared drive. Ask only for missing details; do not depend on a native folder picker.
+3. Keep both documents in one folder. For a new folder, confirm the parent and use the recommended name or the user's alternative. Accepting this choice authorizes creation without another confirmation. Reuse an explicitly chosen existing folder directly. If the user selects a drive or document-library root, create the named folder under it instead of uploading loose files there.
+4. Check for an exact-name folder before creating one. Offer reuse or a distinct name such as `<Bot Name> - XO Decomposition - <YYYY-MM-DD>` if it exists. Verify the resolved folder identifier and write access. Preserve sharing settings, and resolve existing filename collisions according to the user's preference before overwriting files.
+5. Upload only the two final Markdown documents, preserving their contents and filenames; exclude source exports and intermediate evidence. Convert only when requested, using applicable document/provider guidance and verifying the converted files first.
+6. Verify both files and their parent folder through connector readback and return observed folder and file links. Report partial success accurately. Before retrying an uncertain upload, check whether it already created a file and retry only missing or failed uploads.

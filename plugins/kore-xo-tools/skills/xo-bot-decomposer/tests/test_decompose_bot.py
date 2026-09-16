@@ -93,7 +93,50 @@ class DecomposeBotTests(unittest.TestCase):
         self.assertEqual(headers["Authorization"], "[REDACTED]")
         self.assertEqual(headers["X-API-Key"], "{{env.api_key}}")
 
+    def test_mixed_references_do_not_bypass_redaction(self) -> None:
+        parser = load_module(PARSER_PATH, "xo_export_parser_mixed")
+        result = parser._redact_structure({
+            "Authorization": "Bearer literal-secret-{{env.suffix}}",
+            "token": {"reference": "{{env.token}}", "value": "nested-secret"},
+            "X-API-Key": "{{env.api_key}}",
+        })
+        self.assertEqual(result["Authorization"], "[REDACTED]")
+        self.assertEqual(result["token"], "[REDACTED]")
+        self.assertEqual(result["X-API-Key"], "{{env.api_key}}")
+        for text in (
+            'const token = "literal-secret-${env.suffix}";',
+            'https://example.invalid/?token=literal-secret-{{env.suffix}}',
+        ):
+            self.assertNotIn("literal-secret", parser._redact_text(text))
+        reference = '{"Authorization":"Bearer {{env.token}}"}'
+        self.assertEqual(parser._redact_text(reference), reference)
+
+    def test_wrapped_app_export_preserves_evidence_and_source(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            source = root / "appDefinition.json"
+            source.write_text(json.dumps({"appDefinition": json.loads(FIXTURE.read_text())}))
+            original = source.read_bytes()
+            outputs = [root / "first", root / "second"]
+            for output in outputs:
+                subprocess.run(
+                    [sys.executable, str(ENTRY_POINT), str(source), str(output)],
+                    check=True, capture_output=True, text=True,
+                )
+            inventory = json.loads((outputs[0] / "_inventory.json").read_text())
+            self.assertEqual(inventory["version_route"], "XO 11")
+            self.assertEqual(inventory["summary"]["services"], 1)
+            self.assertEqual(inventory["summary"]["scripts"], 1)
+            rendered = (outputs[0] / "_inventory.json").read_text()
+            self.assertIn("{{env.service_host}}", rendered)
+            self.assertIn("context.orderStatus = response.body.status;", rendered)
+            self.assertNotIn("private-header-value", rendered)
+            self.assertEqual(source.read_bytes(), original)
+            self.assertEqual(
+                {p.name: p.read_bytes() for p in outputs[0].iterdir() if p.is_file()},
+                {p.name: p.read_bytes() for p in outputs[1].iterdir() if p.is_file()},
+            )
+
 
 if __name__ == "__main__":
     unittest.main()
-

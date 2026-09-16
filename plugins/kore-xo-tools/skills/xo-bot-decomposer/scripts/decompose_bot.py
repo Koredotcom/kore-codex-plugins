@@ -2,8 +2,9 @@
 """Deterministically decompose a Kore.ai XO bot export.
 
 XO 10 and every earlier/legacy export are treated as XO 10 bot exports.
-Only an explicitly identified XO 11 export is labeled XO 11. Both routes use
-the same parser because the supported single-definition schema is shared.
+An appDefinition.json or explicit major version of 11 or later selects the
+XO 11-compatible route. Both routes use the same parser for supported
+single-definition schemas; routing alone does not establish version support.
 """
 
 from __future__ import annotations
