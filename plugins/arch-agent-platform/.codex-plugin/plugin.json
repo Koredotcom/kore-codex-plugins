@@ -1,0 +1,35 @@
+{
+  "name": "arch-agent-platform",
+  "version": "0.2.0",
+  "description": "Connect to the Kore.ai Agent Platform MCP toolkit for agent development, evaluation, and diagnostics.",
+  "author": {
+    "name": "Kore.ai"
+  },
+  "homepage": "https://github.com/Koredotcom/kore-codex-plugins",
+  "repository": "https://github.com/Koredotcom/kore-codex-plugins",
+  "keywords": [
+    "kore.ai",
+    "agent-platform",
+    "arch",
+    "mcp",
+    "debugging",
+    "evaluation"
+  ],
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Arch Agent Platform Tools",
+    "shortDescription": "Build, evaluate, and diagnose Kore.ai agents",
+    "longDescription": "Connect to the published Kore.ai Arch MCP toolkit using your authorized Agent Platform environment. Provides tools rather than a standalone skill.",
+    "developerName": "Kore.ai",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://kore.ai/",
+    "defaultPrompt": [
+      "Diagnose this Agent Platform session.",
+      "Evaluate this agent and summarize the findings."
+    ]
+  }
+}

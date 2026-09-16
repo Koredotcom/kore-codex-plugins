@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "arch-agent-platform": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@koreai/arch-mcp-tools@latest"
+      ]
+    }
+  }
+}

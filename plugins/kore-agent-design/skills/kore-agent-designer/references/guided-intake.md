@@ -91,4 +91,4 @@ Cross-check the two documents:
 - platform-dependent choices have evidence or are marked unverified; and
 - security, operations, testing, and release responsibilities are not silently omitted.
 
-Apply the review rubric. If the design is ready for project setup, offer a public implementation handoff checklist covering the approved scope, target environment, dependencies, remaining decisions, and acceptance evidence. If it is not ready, ask only the questions that materially improve the next verdict.
+Apply the review rubric. If the design is ready for project setup, offer the implementation handoff and, when platform tools are available, an explicitly authorized continuation into project setup, covering the approved scope, target environment, dependencies, remaining decisions, and acceptance evidence. If it is not ready, ask only the questions that materially improve the next verdict.

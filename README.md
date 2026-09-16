@@ -23,7 +23,15 @@ The skill processes supplied files locally, redacts likely credential values fro
 
 ### Kore Agent Design
 
-Installs `$kore-agent-designer`, which helps users create or review traceable functional and technical designs for conversational, process, or hybrid Kore.ai agents. It supports guided design from an initial idea, document normalization, gap review, readiness assessment, and an implementation handoff without connecting to or modifying a Kore.ai environment.
+Installs `$kore-agent-designer`, which helps users create or review traceable functional and technical designs for conversational, process, or hybrid Kore.ai agents. It supports guided design from an initial idea, document normalization, gap review, readiness assessment, and an implementation handoff. After an explicit implementation request, it can use available Arch/Kore Agent Platform tools for the approved setup scope; connected tools are optional for design and review.
+
+### Arch Agent Platform Tools
+
+The `arch-agent-platform` plugin exposes the published [Arch MCP toolkit](https://www.npmjs.com/package/@koreai/arch-mcp-tools) for agent development, evaluation, and diagnostics. It provides MCP tools, not a standalone skill, and can support the optional implementation handoff from Kore Agent Design.
+
+Requires Node.js with `npx`, network access to the npm registry, and access to the Agent Platform environment you intend to use. Follow the toolkit's connection guidance using your own authorized account; no credentials or default environment are bundled. Select the target environment explicitly before platform work.
+
+The server launches `npx -y @koreai/arch-mcp-tools@latest`. The toolkit version can therefore change independently of this wrapper; restart the server in a new task to pick up a newly published toolkit. The toolkit has its own licensing and runtime behavior. Installation does not itself authorize project changes or deployment.
 
 ## Getting started
 
@@ -81,7 +89,8 @@ codex plugin marketplace upgrade kore-skills
 │   └── <plugin-name>/
 │       ├── .codex-plugin/
 │       │   └── plugin.json       # Codex plugin manifest
-│       ├── skills/               # Skills and their supporting files
+│       ├── .mcp.json             # Optional MCP server configuration
+│       ├── skills/               # Optional skills and their supporting files
 │       ├── scripts/              # Optional deterministic helpers
 │       ├── references/           # Optional reference material
 │       └── assets/               # Optional templates and media

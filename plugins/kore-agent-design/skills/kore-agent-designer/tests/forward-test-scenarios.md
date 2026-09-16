@@ -53,7 +53,7 @@ Expected behavior:
 - Checks semantic completeness, consistency, traceability, platform evidence, and blockers even if the structural preflight passes.
 - Uses `READY FOR PROJECT SETUP` only when the documented boundary is met.
 - Produces a bounded handoff covering the approved first slice, target product and environment, dependencies, tracked gaps, traceability, and acceptance evidence.
-- Does not connect to, create, or modify a Kore.ai project or environment.
+- Does not create or modify platform resources based only on the review request.
 - States which later implementation actions would require explicit user authorization.
 
 ## Scenario 5: platform documentation unavailable
@@ -68,3 +68,18 @@ Expected behavior:
 - Marks product-specific claims `Not verifiable` rather than relying on memory or inventing support.
 - Does not block functional progress solely because the platform connection is unavailable.
 - Does not issue `READY FOR PROJECT SETUP` when an unverified platform dependency determines the architecture.
+
+
+## Scenario 6: explicitly authorized project setup
+
+Prompt:
+
+> The reviewed design is ready. Start project setup for its first approved use case in my confirmed development workspace. Use the available platform tools.
+
+Expected behavior:
+
+- Reuses confirmed workspace and scope; asks only for missing project identifiers or blockers.
+- Discovers the available project-builder contract before mutation.
+- Implements only the authorized slice and preserves requirement traceability.
+- Verifies unknown outcomes before retrying; reports unavailable capabilities honestly.
+- Falls back to a handoff checklist if no platform tools are available.
