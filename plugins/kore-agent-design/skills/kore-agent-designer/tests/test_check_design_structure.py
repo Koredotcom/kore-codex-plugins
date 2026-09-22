@@ -138,6 +138,63 @@ class CheckDesignStructureTests(unittest.TestCase):
         self.assertIn("UC-001 depends on foundation items outside Wave 1: FND-002", warnings)
         self.assertIn("Identifiers defined more than once in this document: FR-001", warnings)
 
+    def test_experience_decision_table_is_canonical_and_index_summary_stays_aligned(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            package = Path(temp_dir) / "design"
+            shutil.copytree(FIXTURES / "modular_standard", package)
+            voice = package / "experience" / "voice.md"
+            voice.write_text(
+                voice.read_text(encoding="utf-8")
+                + "\n## Experience Decisions\n\n"
+                "| EXP ID | Recommended behavior | Confirmation status |\n"
+                "|---|---|---|\n"
+                "| EXP-001 | Stop playback on interruption | Confirmed |\n",
+                encoding="utf-8",
+            )
+            index = package / "00-design-index.md"
+            index.write_text(
+                index.read_text(encoding="utf-8").replace(
+                    "## Decisions and Changes",
+                    "## Experience Decision Summary\n\n"
+                    "| Experience ID | Canonical decision | Confirmation status |\n"
+                    "|---|---|---|\n"
+                    "| EXP-001 | [Voice decision](experience/voice.md) | Confirmed |\n\n"
+                    "## Decisions and Changes",
+                ),
+                encoding="utf-8",
+            )
+            aligned = self.run_checker("--package", str(package))
+            index.write_text(
+                index.read_text(encoding="utf-8").replace(
+                    "| EXP-001 | [Voice decision]", "| EXP-002 | [Voice decision]"
+                ),
+                encoding="utf-8",
+            )
+            drifted = self.run_checker("--package", str(package))
+
+        self.assertEqual(aligned["package"]["status"], "PASS")
+        warnings = "\n".join(drifted["package"]["warnings"])
+        self.assertIn("Experience decisions absent from index summary: EXP-001", warnings)
+        self.assertIn("Index experience summary references undefined decisions: EXP-002", warnings)
+
+    def test_unprovided_priority_scores_are_unresolved_not_invalid(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            package = Path(temp_dir) / "design"
+            shutil.copytree(FIXTURES / "modular_standard", package)
+            index = package / "00-design-index.md"
+            index.write_text(
+                index.read_text(encoding="utf-8").replace(
+                    "| 5 | 4 | 4 | 80 |", "| TBD | TBD | TBD | TBD |"
+                ),
+                encoding="utf-8",
+            )
+            result = self.run_checker("--package", str(package))
+
+        warnings = "\n".join(result["package"]["warnings"])
+        for dimension in ("value", "speed", "readiness"):
+            self.assertIn(f"UC-001 has unresolved {dimension} score: TBD", warnings)
+            self.assertNotIn(f"UC-001 has invalid {dimension} score", warnings)
+
     def test_legacy_pair_remains_supported(self) -> None:
         result = self.run_checker(
             "--functional",

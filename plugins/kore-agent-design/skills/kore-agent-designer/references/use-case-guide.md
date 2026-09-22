@@ -65,7 +65,7 @@ Read this reference before creating or updating any file under `use-cases/`. Cre
 
 ## Experience Applicability
 
-| Modality or channel | Experience references | Material variation |
+| Modality or channel | Experience references | Critical moment or variation |
 |---|---|---|
 
 ## Acceptance Criteria
@@ -87,4 +87,5 @@ Read this reference before creating or updating any file under `use-cases/`. Cre
 - Model every terminal outcome, including success, rejection, cancellation, expiration, transfer, and unrecoverable failure when applicable.
 - Treat conversational escalation and process approval as different behaviors.
 - Make every `AC-###` observable and trace it to requirements and later to technical tests.
+- Link the use case's material experience moments, including failure or handoff, to the applicable `EXP-###` and experience file. Keep observable modality behavior and journey walkthroughs in that file rather than copying them here.
 - Preserve the wave assignment from the index. Propose changes through `CHG-###`; do not alter it only in the use-case file.

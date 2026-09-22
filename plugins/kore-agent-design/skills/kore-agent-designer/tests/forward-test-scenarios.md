@@ -12,7 +12,9 @@ Expected behavior:
 
 - Asks for discovery or equivalent evidence and a working folder before writing files.
 - Continues without discovery, gives the provisional-scope notice once, and does not imply customer approval.
-- Starts with two to five charter questions and creates the index before category documents.
+- Requests relevant source material first, extracts answers already supplied, and groups remaining material questions into manageable batches without a total cap.
+- Distinguishes customer facts requiring evidence from design choices it can recommend for confirmation.
+- Creates the index before category documents once a working folder and enough coherent design context are available.
 - Uses the modular package and marks unresolved wave placement `Proposed`.
 
 ## Scenario 2: customer-approved Wave 1 input
@@ -51,7 +53,9 @@ Prompt:
 Expected behavior:
 
 - Reads the general, index, use-case, and voice references.
-- Covers telephony context, turn-taking, silence, barge-in, recognition repair, confirmation, sensitive values, latency, transfer, disconnect, accessibility, and voice tests.
+- Reads the shared experience reference and covers target-listener voice/accent rationale, speech rate, pronunciation, telephony context, turn-taking, silence, barge-in, recognition repair, confirmation, sensitive values, latency, transfer, disconnect, accessibility, and rendered-audio tests.
+- Produces a concise customer-review summary, critical journey with recovery, and evidence-labelled recommendations the user can confirm or alter.
+- Does not inherit a demo speech provider, adapter, preset, or numeric threshold.
 - Traces `EXP-###` and voice acceptance criteria to the applicable use case.
 - Updates the index and affected technical/testing documents without duplicating functional behavior.
 
@@ -93,3 +97,18 @@ Expected behavior:
 - Verifies unknown outcomes before retrying and reads back created resources where supported.
 - Reports implemented scope and remaining gaps.
 - Falls back to an implementation handoff when project-building tools are unavailable.
+
+## Scenario 8: sparse voice evidence with batch confirmation
+
+Prompt:
+
+> Design a voice agent for appointment changes. I can provide our agreed discovery scope, call recordings, brand voice guide, and contact-center architecture. Ask me what you need; you may recommend the accent, speaking pace, and repair behavior.
+
+For repeatable evaluation, supply the fictional [voice appointment discovery fixture](fixtures/voice_appointment_discovery.md) as the agreed-scope brief; no call recordings or architecture need be supplied initially.
+
+Expected behavior:
+
+- Requests the available sources and a working folder; reads the sources before asking questions they answer.
+- Asks focused follow-ups for target callers, locales, consequential policies, and constraints still missing after source review; does not enforce a five-question total limit or run a low-value questionnaire.
+- Recommends voice character, accent, pace by content type, pronunciation handling, turn-taking, and recovery with evidence states and listening-test needs.
+- Accepts “approve these recommendations except make the rate slower for confirmation numbers,” updates the linked experience, architecture, tests, and index, and does not treat this as customer approval of an unsupported scope baseline.

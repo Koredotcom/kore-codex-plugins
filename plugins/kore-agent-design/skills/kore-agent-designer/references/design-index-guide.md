@@ -72,6 +72,13 @@ Use this structure for `00-design-index.md`:
 | Business outcome or requirement | Canonical design | Technical treatment | Acceptance evidence | Coverage status |
 |---|---|---|---|---|
 
+## Experience Decision Summary
+
+| Experience ID | Canonical decision | Confirmation status | Affected use cases or waves | Next action |
+|---|---|---|---|---|
+
+<Link only material EXP decisions. The experience file owns their full rationale, evidence, and approval record; update this summary in the same increment as a material decision change.>
+
 ## Decisions and Changes
 
 ### Confirmed decisions
@@ -116,4 +123,5 @@ Use this structure for `00-design-index.md`:
 - Update the document register whenever a file is added, renamed, superseded, or changes status, version, or wave.
 - The index links to every canonical package document. A document absent from the register is outside the governed package.
 - Update the traceability summary after material functional or technical changes.
+- Keep the experience decision summary synchronized with applicable voice and digital files; do not treat a user's confirmation of design recommendations as customer approval of the scope baseline.
 - Record only a concise readiness snapshot; keep detailed findings in `reviews/design-review.md`.

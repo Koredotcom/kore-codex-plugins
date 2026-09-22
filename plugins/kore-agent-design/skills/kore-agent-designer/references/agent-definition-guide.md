@@ -29,7 +29,7 @@ Read this reference when creating or updating `01-agent-definition.md`. This doc
 
 ## Shared Behavior
 
-<Behavior that applies to multiple use cases: opening, authentication, context handling, clarification, confirmation, fallback, cancellation, status, and completion conventions.>
+<Behavior that applies to multiple use cases: opening, authentication, context handling, clarification, confirmation, fallback, cancellation, status, and completion conventions. Define shared persona and tone boundaries; link to modality-specific realization rather than duplicating it.>
 
 ## Knowledge and Content
 
@@ -59,6 +59,7 @@ Read this reference when creating or updating `01-agent-definition.md`. This doc
 
 - Put behavior here only when it applies across use cases. Link from a use-case file instead of copying it.
 - Keep channel-neutral behavior here. Put modality-specific behavior in the applicable experience document.
+- Define how the agent adapts tone to context without generic empathy preambles, false reassurance, or promises beyond its authority. Preserve the user's underlying goal alongside the literal request.
 - Define authorization boundaries in business terms; technical enforcement belongs in data/security or architecture.
 - Keep use-case sequences, branches, and acceptance criteria in the use-case files.
 - Give shared `FR`, `BR`, `NFR`, and `OQ` identifiers stable canonical definitions.

@@ -34,6 +34,10 @@ Read this reference when creating or updating `technical/operations-testing-rele
 
 <Foundation checks, selected use-case acceptance, experience validation, integration/contract tests, security evidence, performance evidence, and business-outcome measurement.>
 
+## Experience Validation
+
+<Trace EXP and AC IDs to representative success, misunderstanding, interruption, delay, transfer, failure, and recovery tests. For voice, include rendered-audio listening tests with intended listener groups; pronunciation, accent comprehension, speech-rate and pause suitability, noise/recognition repair, sensitive-value handling, accessibility, and available alternatives. Record what was tested, results, owners, and unresolved limitations.>
+
 ## Release Plan
 
 <Versioning, environment promotion, approvals, configuration checks, migration/coexistence, pilot/canary/phased release, communications, and go-live criteria.>
@@ -55,6 +59,8 @@ Read this reference when creating or updating `technical/operations-testing-rele
 ## Category rules
 
 - Map acceptance criteria into tests; do not use an untraceable generic test checklist.
+- Omit the experience validation section when no channel experience is in scope.
+- Verify caller-visible experience and technical behavior together; a written prompt review or configuration screenshot is not sufficient evidence that spoken interaction works.
 - Include business events and outcomes, not only infrastructure telemetry.
 - Define release and rollback for the actual Wave 1 shape and in-flight state.
 - Give every critical alert, runbook, manual action, and go-live decision an owner.
