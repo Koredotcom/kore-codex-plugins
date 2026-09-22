@@ -1,7 +1,7 @@
 {
   "name": "kore-agent-design",
-  "version": "0.2.0",
-  "description": "Design and review functional and technical specifications for Kore.ai agents.",
+  "version": "0.3.0",
+  "description": "Create and review governed, modular enterprise designs for Kore.ai agents.",
   "author": {
     "name": "Kore.ai"
   },
@@ -11,15 +11,15 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Kore Agent Design",
-    "shortDescription": "Design and review Kore.ai agent solutions.",
-    "longDescription": "Guide a Kore.ai agent from an initial idea or existing material to traceable functional and technical designs, then assess readiness and optionally continue into explicitly authorized setup using available platform tools.",
+    "shortDescription": "Create modular enterprise Kore.ai agent designs.",
+    "longDescription": "Guide a Kore.ai agent from discovery material or an initial idea to a governed package of traceable functional, experience, and technical designs, then assess Wave 1 readiness and optionally continue into explicitly authorized setup using available platform tools.",
     "developerName": "Kore.ai",
     "category": "Productivity",
     "capabilities": ["Interactive", "Write", "Review"],
     "websiteURL": "https://kore.ai/",
     "defaultPrompt": [
-      "Help me design a Kore.ai agent from this idea.",
-      "Review these functional and technical agent designs."
+      "Turn this discovery material into a modular Kore.ai agent design package.",
+      "Review this Kore.ai agent design package for Wave 1 readiness."
     ]
   }
 }
