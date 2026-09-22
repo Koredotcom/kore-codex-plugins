@@ -2,7 +2,9 @@
 
 Use this reference when the user starts from an idea, thin notes, or incomplete evidence. The goal is a productive design conversation, not completion of a questionnaire.
 
-Ask two to five related questions at a time. Prefer questions the current user can answer and name the role or evidence source needed for others. After each meaningful round, summarize confirmed facts, proposals, assumptions, open questions, and documents that can now be drafted.
+Read provided files before questioning. Ask a manageable batch of related, material questions—normally three to five at a time, not a lifetime cap. Prefer questions the current user can answer; name the owner or evidence source needed for others. After each meaningful round, summarize what is confirmed, proposed, assumed, open, and ready to draft. Stop asking when a coherent working design can be produced with explicit gaps; return only when a material answer is needed.
+
+The rounds below are a coverage map, not six mandatory interview sessions. Skip topics covered by supplied evidence, combine related questions, and move to a working draft when the core design is coherent.
 
 Do not repeat answered questions because the answer appeared in an unexpected source. Do not block on noncritical unknowns. Assign an `OQ-###` when an unresolved point affects scope, wave placement, behavior, architecture, security, or readiness.
 
@@ -11,11 +13,19 @@ Do not repeat answered questions because the answer appeared in an unexpected so
 Ask for:
 
 - a discovery intake or equivalent customer-approved scope artifact;
-- requirements, SOPs, architecture diagrams, API material, and source-of-truth folder;
+- relevant requirements, SOPs or process maps, policies and guardrails, architecture and API material, brand/language guidance, sample interactions, and a source-of-truth folder;
 - the target working folder for generated files; and
 - whether an existing modular package should be updated.
 
-If customer-agreed discovery evidence is unavailable, continue with the provisional-scope notice in `SKILL.md`. Do not ask for the working folder again when an explicit destination was already provided.
+Explain why a requested resource matters; do not impose a checklist when a category is irrelevant. Let the user supply a source instead of answering facts already documented in it. If customer-agreed discovery evidence is unavailable, continue with the provisional-scope notice in `SKILL.md`. Do not ask for the working folder again when an explicit destination was already provided.
+
+## Facts, recommendations, and blockers
+
+- Ask for customer-owned facts that cannot responsibly be inferred: intended users and outcomes, scope and exclusions, channels, consequential policies, constraints, and ownership. Prioritize unknowns that change Wave 1 feasibility, safety, or core behavior.
+- Recommend design choices where reasonable, including channel experience, voice character, pacing, confirmation, and recovery. Show rationale and evidence status, then let the user confirm all recommendations or alter selected ones. Update linked documents after confirmation without repeating the question.
+- A missing fact that materially blocks a section remains a named open question with owner and needed source. A nonblocking detail may remain an explicit assumption or `TBD`; it does not prevent a working draft. Do not call a provisional section final or treat user approval of a design proposal as customer-approved discovery scope.
+
+For a batch of choices, show the decision, recommendation, source or rationale, what confirmation is needed, and the canonical document that will own the result. Record who confirmed a choice and when if that information is available.
 
 ## Round 1: agent charter
 
@@ -55,7 +65,7 @@ Keep endpoints, payloads, node types, prompt text, and code out of functional SO
 
 Identify where modalities materially change behavior.
 
-- For voice, discover telephony context, identity, languages, persona, turn-taking, interruption, silence, recognition repair, confirmations, sensitive values, latency, transfer, disconnects, accessibility, and acceptance measures.
+- For voice, discover target listeners and locales, telephony context, identity, brand/voice guidance, pronunciation needs, pace preferences, turn-taking, interruption, silence, recognition repair, confirmations, sensitive values, latency, transfer, disconnects, accessibility, and acceptance measures. Propose an initial design when the user has not prescribed one.
 - For digital channels, discover capability differences, content formats, session/asynchronous behavior, identity, privacy, delivery failure, handoff, accessibility, and channel fallbacks.
 
 Create only applicable experience documents and trace their requirements to use cases.

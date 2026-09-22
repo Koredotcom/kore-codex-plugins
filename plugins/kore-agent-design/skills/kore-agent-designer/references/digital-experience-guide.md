@@ -1,6 +1,6 @@
 # Digital experience guide
 
-Read this reference when web, mobile, messaging, collaboration, SMS, or email behavior materially affects the design. Create one experience file per distinct interaction model, not automatically per channel.
+Read this reference with [experience-design-guide.md](experience-design-guide.md) when web, mobile, messaging, collaboration, SMS, or email behavior materially affects the design. Create one experience file per distinct interaction model, not automatically per channel. Apply the shared customer-review summary, critical journeys, decisions, and coverage review.
 
 ## Required structure
 
@@ -11,6 +11,14 @@ Read this reference when web, mobile, messaging, collaboration, SMS, or email be
 ## Document Metadata
 
 <Use the metadata block from general-design-guidance.md.>
+
+## Experience Summary
+
+<Use the shared experience guide. Include material user goals, recommended interaction behavior, and decisions awaiting confirmation.>
+
+## Critical Journeys
+
+<Show material Wave 1 success and recovery journeys using the shared experience guide.>
 
 ## Scope and Applicable Channels
 
@@ -26,7 +34,7 @@ Read this reference when web, mobile, messaging, collaboration, SMS, or email be
 
 ## Channel Variations
 
-| ID | Channel or condition | Expected behavior | Constraint | Applicable use cases |
+| EXP reference | Channel or condition | Expected behavior | Constraint | Applicable use cases |
 |---|---|---|---|---|
 
 ## Identity, Privacy, and Confirmation
@@ -42,6 +50,14 @@ Read this reference when web, mobile, messaging, collaboration, SMS, or email be
 | ID | Scenario | Given | When | Then | Evidence method |
 |---|---|---|---|---|---|
 
+## Experience Decisions
+
+<Use the shared experience guide to define EXP decisions with rationale, evidence and confirmation status.>
+
+## Experience Coverage
+
+<Show functional, technical, and test coverage for critical journeys and EXP decisions without duplicating the use-case SOP.>
+
 ## Open Questions
 
 | ID | Question | Affected use cases | Owner or evidence needed | Blocking? |
@@ -51,6 +67,8 @@ Read this reference when web, mobile, messaging, collaboration, SMS, or email be
 ## Category rules
 
 - Group channels only when their interaction and capability constraints are materially the same.
+- Design around the user's underlying concern and context, including frustration, bad news, and recovery; avoid generic empathy text or demo-like dialogue scripts.
+- Make critical steps, decision points, and outcomes reviewable by the customer without duplicating the functional SOP.
 - Define fallback when a card, form, attachment, deep link, notification, or formatting feature is unavailable.
 - Treat email and asynchronous messaging differently from a live chat session when timing and ordering matter.
 - Trace each `EXP-###` and experience `AC-###` to applicable use cases.

@@ -43,6 +43,10 @@ Read this reference when creating or updating `technical/architecture.md`.
 
 <Model constraints, instruction hierarchy, tool boundaries and schemas, knowledge/retrieval placement, grounding, confirmation controls, reasoning boundaries, unsupported-action behavior, and evaluation needs.>
 
+## Voice Architecture Decisions
+
+<Record the selected channel integration, speech recognition and synthesis approach, interruption and pause-detection controls, latency dependencies, degradation, and fallback. Link each choice to caller-visible EXP requirements and test evidence. Document product/version-specific fields and thresholds only when supported by current public documentation or supplied environment evidence; otherwise mark them Not verifiable or TBD.>
+
 ## Architecture Decisions
 
 | ID | Decision | Functional IDs | Rationale and evidence | Status | Approver |
@@ -60,4 +64,6 @@ Read this reference when creating or updating `technical/architecture.md`.
 - Record evidence for product-specific claims; use `Not verifiable` when current evidence is unavailable.
 - Show trust boundaries and sources of truth, not only component boxes.
 - For process agents, make persistence, human tasks, resume events, and terminal states explicit.
+- Omit the voice architecture section when voice is outside the approved or proposed scope.
+- Do not inherit a provider, adapter, voice preset, or configuration threshold from a demo. Recommend technical choices against actual customer constraints and validated platform support.
 - Keep API fields, authentication mechanics, and operational runbooks in their dedicated technical files.

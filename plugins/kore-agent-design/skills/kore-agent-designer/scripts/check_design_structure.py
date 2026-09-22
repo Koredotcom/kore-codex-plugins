@@ -288,7 +288,14 @@ def definition_token_occurrences(text: str, category: str, metadata: dict[str, s
             definitions.append(match.group(1))
 
     for prefix, section in TABLE_DEFINITION_SECTIONS.get(category, {}).items():
-        for _, rows in parse_tables(section_text(text, section)):
+        tables = parse_tables(section_text(text, section))
+        if category in {"voice-experience", "digital-experience"} and prefix == "EXP":
+            preferred = first_table_in_section(text, "Experience Decisions")
+            if preferred and preferred[1]:
+                # New packages define EXP IDs in the decision table. Older v2
+                # packages keep their canonical definitions in the variation table.
+                tables = [preferred]
+        for _, rows in tables:
             for row in rows:
                 for value in row.values():
                     if re.fullmatch(rf"{prefix}-\d{{3}}", value.strip()):
@@ -518,7 +525,10 @@ def validate_manifest(package: Path, documents: list[dict[str, Any]]) -> list[st
                 try:
                     score = int(raw)
                 except ValueError:
-                    warnings.append(f"{use_case_id} has invalid {dimension} score: {raw or '<missing>'}")
+                    if raw.strip().casefold() in {"tbd", "not verifiable", "not available"}:
+                        warnings.append(f"{use_case_id} has unresolved {dimension} score: {raw}")
+                    else:
+                        warnings.append(f"{use_case_id} has invalid {dimension} score: {raw or '<missing>'}")
                     continue
                 if not 1 <= score <= 5:
                     warnings.append(f"{use_case_id} has {dimension} score outside 1–5: {score}")
@@ -609,6 +619,23 @@ def validate_traceability(documents: list[dict[str, Any]]) -> tuple[list[str], d
         warnings.append("Referenced identifiers without canonical definitions: " + ", ".join(undefined))
     if orphaned:
         warnings.append("Canonical identifiers with no cross-document reference: " + ", ".join(sorted(orphaned)))
+
+    index_doc = next((doc for doc in documents if doc["category"] == "index"), None)
+    if index_doc:
+        summary = first_table_in_section(index_doc["text"], "Experience Decision Summary")
+        if summary:
+            summary_ids = {
+                identifier
+                for row in rows_by_normalized_header(summary)
+                if (identifier := first_identifier(row.get("experience id", ""), "EXP"))
+            }
+            experience_ids = {item for item in definitions if item.startswith("EXP-")}
+            missing = sorted(experience_ids - summary_ids)
+            stale = sorted(summary_ids - experience_ids)
+            if missing:
+                warnings.append("Experience decisions absent from index summary: " + ", ".join(missing))
+            if stale:
+                warnings.append("Index experience summary references undefined decisions: " + ", ".join(stale))
 
     for doc in documents:
         if doc["category"] not in {"connectivity-integrations", "use-case-apis"}:

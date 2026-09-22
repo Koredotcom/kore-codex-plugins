@@ -26,7 +26,8 @@ Check that:
 - long-running work defines identity, persistence, waits, human-task authorization, deadlines, resumption, cancellation, recovery, and audit;
 - handoff and process approval are distinct;
 - applicable modalities have category-specific behavior and failure handling; and
-- voice covers turn-taking, silence, interruption, recognition, confirmation, latency, transfer, sensitive values, accessibility, and testing.
+- critical journeys and EXP decisions are understandable to a customer, linked to functional sources and acceptance evidence, and clearly marked proposed or confirmed; and
+- voice covers listener-appropriate voice/accent and rate rationale, pronunciation, turn-taking, silence, interruption, recognition, confirmation, latency, transfer, sensitive values, accessibility, and rendered-audio testing.
 
 ## Technical review
 
@@ -37,6 +38,8 @@ Check that:
 - integrations and APIs specify contracts, mapping, authorization, timeouts, retries, errors, idempotency, and unknown-outcome handling;
 - data, identity, security, privacy, retention, observability, operational ownership, testing, release, and rollback are actionable; and
 - product-specific claims have current evidence or are marked `Not verifiable`.
+
+Treat material missing source facts differently from confirmable design recommendations. Verify that supplied resources were used, essential gaps were asked with purpose, and provisional scope was not silently promoted to approved. Do not fail a design merely because a recommendation awaits user confirmation; identify its impact on the next readiness stage.
 
 ## Wave 1 readiness gate
 

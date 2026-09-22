@@ -19,7 +19,11 @@ Infer the mode when the request makes it clear. Ask only when the choice would m
 
 ## Start with sources and destination
 
-At the beginning, ask whether the user has a discovery intake, customer-approved scope artifact, requirements package, architecture material, or source-of-truth folder. A discovery intake is preferred but is not required.
+At the beginning, identify any supplied discovery intake, customer-approved scope artifact, requirements package, architecture material, or source-of-truth folder. Ask for relevant missing sources, especially the discovery intake or equivalent agreed scope. A discovery intake is preferred but is not required.
+
+Request other relevant evidence—such as policies, process maps, brand/language guidance, sample interactions, and integration contracts—according to the agent's scope. Read supplied resources before asking questions they already answer. For thin or incomplete input, use [references/guided-intake.md](references/guided-intake.md) to prioritize missing facts across the whole design. Ask focused questions in manageable batches, not a fixed total number; do not prolong intake for details that can be marked provisional.
+
+Distinguish customer-owned facts (which require evidence or an answer) from design choices (which can be recommended). Offer evidence-labelled recommendations together for confirmation or selective revision; a user's approval of recommendations does not establish customer approval of scope.
 
 When no customer-agreed discovery artifact is available, continue and say once:
 
@@ -50,7 +54,7 @@ For every package creation or update, read [references/general-design-guidance.m
 - For thin input or guided discovery, also read [references/guided-intake.md](references/guided-intake.md).
 - For the shared agent charter and behavior, read [references/agent-definition-guide.md](references/agent-definition-guide.md).
 - For each use case, read [references/use-case-guide.md](references/use-case-guide.md).
-- For voice, read [references/voice-experience-guide.md](references/voice-experience-guide.md). For web, mobile, messaging, or email behavior, read [references/digital-experience-guide.md](references/digital-experience-guide.md).
+- For any material channel experience, first read [references/experience-design-guide.md](references/experience-design-guide.md). Then read [references/voice-experience-guide.md](references/voice-experience-guide.md) for voice or [references/digital-experience-guide.md](references/digital-experience-guide.md) for web, mobile, messaging, or email behavior.
 - For technical work, read only the guides needed: [solution architecture](references/solution-architecture-guide.md), [connectivity and integrations](references/connectivity-integrations-guide.md), [use-case APIs](references/use-case-api-guide.md), [data and security](references/data-security-guide.md), and [operations, testing, and release](references/operations-testing-release-guide.md).
 - For review or readiness, read [references/review-readiness-guide.md](references/review-readiness-guide.md).
 
