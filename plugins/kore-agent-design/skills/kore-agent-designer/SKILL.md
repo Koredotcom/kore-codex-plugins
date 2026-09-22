@@ -1,26 +1,33 @@
 ---
 name: kore-agent-designer
-description: Guide a Kore.ai agent from an initial idea or supplied material to a traceable functional design and technical design. Use for guided discovery, drafting, updating, design review, gap analysis, readiness assessment, or an implementation handoff. Do not estimate effort. Create or modify a Kore.ai project only after an explicit implementation request using available platform tools.
+description: Guide a Kore.ai agent from discovery material or an initial idea to a governed, modular enterprise design package. Use for guided discovery, drafting, updating, design review, gap analysis, wave readiness, or an implementation handoff. Do not estimate effort. Create or modify a Kore.ai project only after an explicit implementation request using available platform tools.
 ---
 
 # Kore Agent Designer
 
-Create or review two traceable artifacts:
-
-1. an **Agent Functional Design (SOP)** describing business behavior; and
-2. an **Agent Technical Design** describing a feasible implementation approach.
-
-Support conversational agents, long-running process agents, and hybrids. Do not assume a particular Kore.ai component, deployment environment, integration, or custom-code capability without evidence.
+Create or review an enterprise design package for a conversational, process, or hybrid Kore.ai agent. The package keeps business behavior, channel experience, and technical decisions in focused Markdown files governed by one design index.
 
 ## Choose the operating mode
 
 - **Guide from scratch:** progressively discover the design from an idea.
-- **Draft:** turn supplied notes, diagrams, requirements, or SOPs into the templates.
-- **Review:** judge the substance of an existing functional or technical design without requiring the source to use these templates.
-- **Update:** incorporate new facts while preserving identifiers and traceability.
-- **Prepare for implementation:** assess readiness and produce a bounded handoff checklist.
+- **Draft:** turn supplied discovery, requirements, diagrams, or SOPs into the modular package.
+- **Review:** judge the substance and consistency of an existing design, including free-form or legacy documents.
+- **Update:** incorporate new evidence or decisions while preserving identifiers, baselines, and traceability.
+- **Prepare for implementation:** assess Wave 1 readiness and produce a bounded handoff.
 
-Infer the mode when the request makes it clear. Ask only when the choice would materially change the result.
+Infer the mode when the request makes it clear. Ask only when the choice would materially change the work.
+
+## Start with sources and destination
+
+At the beginning, ask whether the user has a discovery intake, customer-approved scope artifact, requirements package, architecture material, or source-of-truth folder. A discovery intake is preferred but is not required.
+
+When no customer-agreed discovery artifact is available, continue and say once:
+
+> We can proceed with the design. Phase and wave assignments will remain proposed and may need revision when the customer-agreed discovery scope becomes available.
+
+Record the missing baseline as an open question and never imply that proposed scope is customer-approved.
+
+Before creating or updating files, ask for the working folder unless the user already supplied an explicit destination. For a new package, create or use `<agent-slug>-design/` inside that destination. For an update, locate the existing `00-design-index.md` before editing. Do not default output into the installed plugin, source-artifact folder, or current shell directory.
 
 ## Preserve evidence and authority
 
@@ -34,93 +41,105 @@ Keep these states distinct:
 - `Not verifiable` — requires unavailable product, environment, security, or architecture evidence.
 - `Not applicable` — irrelevant to the design, with a reason.
 
-Never present an inference as an existing capability or approved decision. Missing exported configuration, tool visibility, or secret values are evidence gaps, not proof that an integration or control does not exist.
+Never present an inference as an existing capability or approved decision. Missing configuration, tool visibility, or secure values are evidence gaps, not proof that an integration or control does not exist.
 
-## Work progressively
+## Read the applicable guidance
 
-For a new idea or thin input, read [references/guided-intake.md](references/guided-intake.md). Ask two to five related questions at a time, starting with the business problem, users, trigger, outcome, and likely operating model. After each meaningful round, summarize confirmed facts, proposals, assumptions, and open questions, then draft what can already be supported.
+For every package creation or update, read [references/general-design-guidance.md](references/general-design-guidance.md) and [references/design-index-guide.md](references/design-index-guide.md) completely.
 
-Build the functional design far enough to anchor the solution before making detailed technical choices. Start the technical design as a working skeleton once those questions become useful; mark gaps instead of inventing answers.
+- For thin input or guided discovery, also read [references/guided-intake.md](references/guided-intake.md).
+- For the shared agent charter and behavior, read [references/agent-definition-guide.md](references/agent-definition-guide.md).
+- For each use case, read [references/use-case-guide.md](references/use-case-guide.md).
+- For voice, read [references/voice-experience-guide.md](references/voice-experience-guide.md). For web, mobile, messaging, or email behavior, read [references/digital-experience-guide.md](references/digital-experience-guide.md).
+- For technical work, read only the guides needed: [solution architecture](references/solution-architecture-guide.md), [connectivity and integrations](references/connectivity-integrations-guide.md), [use-case APIs](references/use-case-api-guide.md), [data and security](references/data-security-guide.md), and [operations, testing, and release](references/operations-testing-release-guide.md).
+- For review or readiness, read [references/review-readiness-guide.md](references/review-readiness-guide.md).
 
-## Create the design artifacts
+Apply workflow rules in this file first, shared rules in the general guide second, and category-specific rules third. A category guide may specialize shared guidance but must not silently contradict it.
 
-Read [references/functional-design-template.md](references/functional-design-template.md) before creating or updating the functional design. Read [references/technical-design-template.md](references/technical-design-template.md) before creating or updating the technical design.
+Load category guidance just in time. Do not read every technical and experience guide or fully pre-plan every document before creating the first supported files.
 
-For skill-authored documents:
+## Build the package progressively
 
-- preserve the template marker and all level-two headings in order;
-- retain non-applicable sections with a short reason;
-- repeat the prescribed use-case structure for each use case;
-- keep business behavior in the functional design and implementation detail in the technical design;
-- preserve stable identifiers rather than renumbering to close gaps;
-- use relative companion links when files share a directory; and
-- default filenames to `<agent-slug>_functional_design.md`, `<agent-slug>_technical_design.md`, and `<agent-slug>_design_review.md`.
+Create only files supported by the current evidence, but establish the index first and keep it current:
 
-Use these identifiers:
+```text
+<agent-slug>-design/
+├── 00-design-index.md
+├── 01-agent-definition.md
+├── use-cases/
+│   └── UC-###-<slug>.md
+├── experience/
+│   └── <modality>.md
+├── technical/
+│   ├── architecture.md
+│   ├── connectivity-integrations.md
+│   ├── use-case-apis.md
+│   ├── data-security.md
+│   └── operations-testing-release.md
+└── reviews/
+    └── design-review.md
+```
 
-| Prefix | Meaning |
-|---|---|
-| `UC-###` | User goal or process use case |
-| `FR-###` | Functional requirement |
-| `BR-###` | Business rule |
-| `NFR-###` | Non-functional requirement |
-| `INT-###` | Integration requirement |
-| `AC-###` | Acceptance criterion |
-| `TD-###` | Technical decision |
-| `OQ-###` | Open question |
+Omit category files that are not applicable and record that decision in the index. Keep Markdown as the canonical editable source. DOCX, PDF, or connected-document exports are derived outputs unless the user explicitly selects another authoritative source.
 
-When reviewing a free-form document, judge facts wherever they appear. Different headings are not themselves a design defect.
+Work incrementally in this order:
 
-## Treat process behavior as first-class
+1. Inventory the supplied evidence and distinguish confirmed scope from proposals.
+2. Write the index, agent definition, and first Wave 1 use-case file as the minimum governed package. Register only files that exist, and include only identifiers already defined or created in the same increment.
+3. Run the checker immediately and correct foundational metadata, link, identifier, prioritization, and wave warnings before expanding the package.
+4. Create additional use-case, experience, and technical documents in small independent increments. Read each category guide immediately before that category and update the index with the same increment.
+5. Run the checker after each material increment, then reconcile cross-document facts and perform the final semantic review.
 
-For process or hybrid agents, explicitly capture request identity, persisted state, wait and resume events, human-task authorization, decision outcomes, deadlines, cancellation, duplicate events, retries, recovery, audit, and terminal states. Do not model a long-running process as a chat session held open indefinitely.
+Do not delay all writes while designing a warning-free final package in memory. A complete, evidence-labelled working draft is the first checkpoint; refinement follows validation. When a later-wave use case receives a `UC-###`, create at least its governed skeletal use-case file so the identifier has one canonical definition.
 
-Use `Not applicable` for process-only sections in a purely conversational design.
+## Govern Wave 1
+
+Use `Wave 1` as the canonical label and preserve `Phase 1` as a stated alias when supplied. The index owns all wave assignments.
+
+Wave 1 must contain foundation work and at least one use case selected using explicit Value, Speed, and Readiness evidence. Preserve any customer-approved selection or documented override. The default planning target is delivery within 30 working days unless the supplied evidence establishes another target.
+
+Do not estimate effort. Assess whether scope, dependencies, access, integrations, architecture, and readiness evidence support the target. A material feasibility concern prevents an implementation-ready verdict until scope, dependency, or target is resolved and recorded.
+
+## Coordinate bulk work safely
+
+When subagents are available and the source contains at least two substantial independent workstreams, the coordinator may delegate bounded use-case or category analysis.
+
+- The coordinator reads the complete source inventory and exclusively owns the working folder, index, shared agent definition, identifier allocation, wave baseline, and change history.
+- Give each subagent the relevant evidence, allocated identifiers, wave scope, general guide, and applicable category guide.
+- Subagents return evidence-linked findings or edit only their assigned files; they never edit shared governance files.
+- The coordinator reconciles contradictions, validates the complete package, and performs the final semantic review.
+
+When subagents are unavailable, use the same sequence serially. Do not delegate merely because a source is long.
 
 ## Verify platform-specific claims
 
-Use current public Kore.ai documentation or user-provided environment evidence when product behavior affects the design. Record the evidence used. If authoritative evidence is unavailable, continue with product-neutral questions and mark the implementation choice `Not verifiable`.
+Use current public Kore.ai documentation or user-provided environment evidence when platform behavior affects the design. Record the source used. If authoritative evidence is unavailable, continue with product-neutral design and mark the choice `Not verifiable`.
 
-Use only documentation and tools available to the user. When an available Arch/Kore Agent Platform documentation tool needs a connection, use a previously authorized environment or ask the user to select one; never infer production as the default. A connection is optional for discovery: continue with evidence gaps when it is unavailable. A design or review request does not authorize platform changes.
+Use only documentation and tools available to the user. Select a target environment explicitly before environment-specific discovery. Design and review requests do not authorize platform changes.
 
-## Review and assess readiness
+## Review and validate
 
-For review or readiness work, read [references/review-rubric.md](references/review-rubric.md). Review the complete supplied artifact set and use the rubric's statuses, fixed report structure, and readiness verdicts. Do not calculate a numerical score.
+Review facts across the complete package rather than treating a missing heading as a semantic defect. Legacy v1 functional and technical documents remain valid review inputs; migrate them only when the user asks to update or modularize them.
 
-Write each finding as:
-
-> missing, weak, or conflicting fact → effect on the design or implementation → exact question or action → affected identifiers
-
-The bundled structural checker is advisory. It helps with documents created from these templates but never replaces semantic review:
+Run the advisory package checker after creating or updating a modular package:
 
 ```bash
 python3 "${PLUGIN_ROOT}/skills/kore-agent-designer/scripts/check_design_structure.py" \
-  --functional "<agent>_functional_design.md" \
-  --technical "<agent>_technical_design.md"
+  --package "<agent-slug>-design"
 ```
 
-When `PLUGIN_ROOT` is unset during repository-source testing, resolve the script relative to this `SKILL.md`. Treat `PASS`, `WARN`, and `UNRECOGNIZED_FORMAT` only as structural evidence.
+When `PLUGIN_ROOT` is unset in a repository checkout, resolve the script relative to this `SKILL.md`. The checker verifies package structure, metadata, links, identifiers, manifest consistency, wave alignment, and traceability. It never replaces semantic review.
 
-## Prepare an implementation handoff
+## Prepare the implementation handoff
 
-When the verdict permits project setup, recommend a handoff containing:
+When the readiness verdict permits setup, provide the approved Wave 1 scope, target product and environment, foundation, selected use case, dependencies, traceability, acceptance tests, blockers, and actions requiring authorization.
 
-- the approved scope and first implementation slice;
-- confirmed target product, workspace, and environment—or explicit open questions;
-- functional-to-technical traceability;
-- integration, identity, data, security, and operational dependencies;
-- blocking and nonblocking gaps with owners;
-- acceptance tests and release evidence; and
-- actions that still require explicit user authorization.
+Platform mutation requires an explicit implementation request. After authorization:
 
-When ready, offer to continue with available Arch/Kore Agent Platform tools to set up the approved design. This recommendation does not authorize changes. If tools are unavailable, provide the handoff checklist without claiming implementation occurred.
+1. Confirm the target environment or workspace, project identity, and first approved implementation slice.
+2. Discover the available platform project-builder contract before modifying resources.
+3. Resolve assumptions that block the slice and build only the approved scope.
+4. Verify operations with unknown outcomes before retrying and read back created resources where supported.
+5. Report implemented scope, remaining gaps, and anything the available tools could not create or verify.
 
-After the user explicitly asks to implement:
-
-1. Resolve the target environment/workspace, project name and description, and first implementation slice; reuse already confirmed choices.
-2. Discover the available platform tools and follow their project-builder discovery contract before planning or modifying resources. Do not invent actions or require employee-only services.
-3. Resolve assumptions that block the approved slice, then build only that slice while preserving functional-to-technical traceability.
-4. Verify operations with unknown outcomes before retrying and read back the created resources where supported.
-5. Report the implemented scope, remaining gaps, and anything the available tools cannot create or verify.
-
-Project, workflow, agent, integration, version, or deployment mutations require explicit authorization for that implementation scope; ordinary discovery or readiness review alone is insufficient.
+If project-building tools are unavailable, provide the handoff without claiming platform work occurred.
